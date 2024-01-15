@@ -3,6 +3,7 @@ import AppNavigator from "../navigation/AppNavigator";
 import { useDispatch } from "react-redux";
 import { addAllProduits } from "../slices/ProduitSlice";
 import axios from "axios";
+import { addAllCategories } from "../slices/CategorieSlice";
 
 
 const Main =()=>{
@@ -10,8 +11,11 @@ const Main =()=>{
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('https://2faa-41-188-105-87.ngrok-free.app/api/data');
-          dispatch(addAllProduits(response.data));
+          const response = await axios.get('https://c46c-41-223-98-194.ngrok-free.app/api/data');
+          // dispatch(addAllProduits(response.data));
+          // alert(JSON.stringify(response.data))
+          dispatch(addAllCategories(response.data));
+          // alert(JSON.stringify(response.data))
         } catch (error) {
           console.error('Error fetching data:', error);
         } 

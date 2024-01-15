@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 
 const Home = () => {
     const myProducts = useSelector(allproduits);
+    alert(JSON.stringify(myProducts))
   return (
     <View style={{ flex:1 }}>
         <View style={{ flexDirection:'column',justifyContent:'center' }}>
