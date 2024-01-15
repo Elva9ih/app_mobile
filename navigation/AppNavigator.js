@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer >
     <Stack.Navigator >
-    <Stack.Screen
+    {/* <Stack.Screen
         name="ListeProduits"
         component={SelctedProduit}
         options={{ 
@@ -29,7 +29,7 @@ const AppNavigator = () => (
           shadowColor: '#427D9D',
         },
          }}
-      />
+      /> */}
       <Stack.Screen
         name="Home"
         component={Home}

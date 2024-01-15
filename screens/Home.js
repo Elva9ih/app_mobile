@@ -18,13 +18,13 @@ const Home = () => {
          <Icon name="menu" size={40} color="#7f8282" />
          </TouchableOpacity>
              <Search/>
-             <TouchableOpacity style={{ right:10 }}>
+             <TouchableOpacity style={{ right:6,bottom:2 }}>
                 <Icon name="shopping-cart" size={40} color="#2a7882" />
              </TouchableOpacity>
              
          </View>
         </View>
-             <View style={{ backgroundColor:'#db3d43',position:'absolute',padding:2,borderRadius:200,right:20,top:10 }}>
+             <View style={{ backgroundColor:'#db3d43',position:'absolute',padding:2,borderRadius:200,right:15,top:9 }}>
                   <Text style={{ fontSize:12,color:'white'}}> 2 </Text>
              </View>
 
