@@ -5,9 +5,12 @@ import { FlatList } from 'react-native';
 import Produit from '../components/Produit';
 import { allproduits } from '../slices/ProduitSlice';
 import { Icon } from 'react-native-elements';
+import { allcategories } from '../slices/CategorieSlice';
 
 const SelctedProduit = () => {
-    const Products = useSelector(allproduits);
+
+    const categories = useSelector(allcategories);
+    // alert(JSON.stringify(categories))
     const renderItem = ({ item }) => (
           <Produit
               key={item.id}

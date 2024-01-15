@@ -39,7 +39,7 @@ const Search = () => {
         <Icon name='search' size={18} type='font-awesome' color='#7f8282'/>
     </View>
     <TextInput
-      style={{ backgroundColor: 'white', height: 38, width: '90%',right:15, borderRadius: 10, padding: 1, paddingLeft: 38 }}
+      style={{ backgroundColor: 'white', height: 38, width: '96%',right:15, borderRadius: 10, padding: 1, paddingLeft: 38 }}
     //   value={search}
       placeholder='Search'
       underlineColorAndroid='transparent'
