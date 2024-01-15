@@ -1,4 +1,4 @@
-import { View, TextInput,Image, Text, StyleSheet, ScrollView, FlatList} from 'react-native'
+import { View, TextInput,Image, Text, StyleSheet, FlatList} from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { allproduits } from '../slices/ProduitSlice';
@@ -69,14 +69,14 @@ const Home = ({navigation}) => {
     {/*  searsh */}
        <Head/>
     {/* categorie */}
-         <ScrollView style={{ height:600,width:'100%',marginTop:35 }}>
+         <View style={{ height:600,width:'100%',marginTop:35 }}>
          <FlatList
             data={categories}
             keyExtractor={(item) => item}
             renderItem={renderItem}
             style={{ backgroundColor:'#ededed' }}
         />
-         </ScrollView>
+         </View>
       
     </View>
   )

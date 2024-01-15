@@ -30,7 +30,7 @@ const SelctedProduit = () => {
         {/* featured */}
             <View style={{ alignItems:'center',backgroundColor:'#ededed',height:630}}>
                 <FlatList
-                data={Products}
+                data={categories}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
