@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = () => {
     const myProducts = useSelector(allproduits);
+    alert(JSON.stringify(myProducts))
   return (
     <View style={{ flex:1 }}>
         <View style={{ flexDirection:'column',justifyContent:'center' }}>
