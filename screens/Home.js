@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { allproduits } from '../slices/ProduitSlice';
 import Search from '../components/Search';
 import { Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Home = () => {
@@ -11,47 +12,32 @@ const Home = () => {
   return (
     <View style={{ flex:1 }}>
         <View style={{ flexDirection:'column',justifyContent:'center' }}>
-          <Search/>
+         <View style={styles.searsh_vente}>
+         <TouchableOpacity>
+         <Icon name="menu" size={40} color="#7f8282" />
+         </TouchableOpacity>
+             <Search/>
+             <TouchableOpacity style={{ right:10 }}>
+                <Icon name="shopping-cart" size={40} color="#2a7882" />
+             </TouchableOpacity>
+             
+         </View>
         </View>
+             <View style={{ backgroundColor:'#db3d43',position:'absolute',padding:2,borderRadius:200,right:20,top:10 }}>
+                  <Text style={{ fontSize:12,color:'white'}}> 2 </Text>
+             </View>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 4,
-    paddingBottom: 2,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-    padding: 3,
-    borderRadius: 999, // Use a large value for a rounded shape
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-  input: {
-    marginLeft: 2,
-    flex: 1,
-  },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 2,
-    borderLeftWidth: 2,
-    paddingLeft: 2,
-    borderLeftColor: 'gray',
-  },
-  locationText: {
-    color: 'gray',
-  },
-  filterButton: {
-    padding: 3,
-    borderRadius: 999,
-  },
+         searsh_vente:{
+              marginTop:20,
+              flexDirection:'row',
+              width:'100%',
+              justifyContent:'space-evenly'
+         },
+
 });
 export default Home

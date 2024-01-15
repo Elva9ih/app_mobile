@@ -17,7 +17,7 @@ const AppNavigator = () => (
           color: 'white', 
         },
         headerRight: () => (
-          <View style={{ marginRight: 40 }}>
+          <View style={{ marginRight: 20 }}>
             <TouchableOpacity>
               <Icon name='user' size={30} type='font-awesome' color='white' />
             </TouchableOpacity>
