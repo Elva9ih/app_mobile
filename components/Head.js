@@ -4,8 +4,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import Search from './Search';
+import { useNavigation } from '@react-navigation/native';
 
 const Head = () => {
+  const navigation=useNavigation()
   return (
     <View>
     <View style={{ flexDirection:'column',justifyContent:'center' }}>
@@ -14,7 +16,10 @@ const Head = () => {
     <Icon name="menu" size={40} color="#7f8282" />
     </TouchableOpacity>
         <Search/>
-        <TouchableOpacity style={{ right:6,bottom:2 }}>
+        <TouchableOpacity style={{ right:6,bottom:2 }}
+         onPress={() => {
+          navigation.navigate("ListProduits");
+        }}>
            <Icon name="shopping-cart" size={40} color="#6588bf" />
         </TouchableOpacity>
         

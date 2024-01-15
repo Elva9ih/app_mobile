@@ -22,10 +22,8 @@ import Head from '../components/Head';
 const Home = ({navigation}) => {
     const myProducts = useSelector(allproduits);
     const categories = useSelector(allcategories);
-    // alert('ffff')
-    // alert(JSON.stringify(myProducts))
+    
     const renderProduct = ({item}) => (
-      // alert(JSON.stringify(item))
          <View>
               <View style={{ padding:10,marginLeft:10,borderRadius:10 ,backgroundColor:'#fff'}}>
               <Image

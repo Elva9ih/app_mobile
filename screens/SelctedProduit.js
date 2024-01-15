@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
@@ -9,7 +9,7 @@ import { allcategories } from '../slices/CategorieSlice';
 
 const SelctedProduit = () => {
 
-    const categories = useSelector(allcategories);
+    const produits = useSelector(allproduits);
     // alert(JSON.stringify(categories))
     const renderItem = ({ item }) => (
           <Produit
@@ -26,11 +26,11 @@ const SelctedProduit = () => {
 
     <SafeAreaView style={{flex:1, backgroundColor: '#fff' }}>
       
-      <ScrollView style={{ backgroundColor:'#ffff'}} >
+      <View style={{ backgroundColor:'#ffff'}} >
         {/* featured */}
             <View style={{ alignItems:'center',backgroundColor:'#ededed',height:630}}>
                 <FlatList
-                data={categories}
+                data={produits}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
@@ -95,7 +95,7 @@ const SelctedProduit = () => {
           </TouchableOpacity> */}
             </View>
           
-        </ScrollView>
+        </View>
         
     </SafeAreaView>
   
