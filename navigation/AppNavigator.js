@@ -15,17 +15,17 @@ const AppNavigator = () => (
         options={{ 
           headerTitle:'List des ventes',
         headerTitleStyle: {
-          color: 'white', 
+          color: '#ebeced', 
         },
         headerRight: () => (
           <View style={{ marginRight: 40 }}>
             <TouchableOpacity>
-              <Icon name='user' size={30} type='font-awesome' color='white' />
+              <Icon name='user' size={30} type='font-awesome' color='#ebeced' />
             </TouchableOpacity>
           </View>
         ),
         headerStyle: {
-          backgroundColor: '#164863',
+          backgroundColor: '#6588bf',
           shadowColor: '#427D9D',
         },
          }}
