@@ -6,7 +6,7 @@ import { FlatList } from 'react-native';
 
 const SelctedProduit = () => {
     const categories = useSelector(allcategories);
-    alert(JSON.stringify(categories))
+    // alert(JSON.stringify(categories))
     const renderItem = ({ item }) => (
         <View>
           <Text>{item}</Text>

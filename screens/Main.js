@@ -12,8 +12,9 @@ const Main =()=>{
       const fetchData = async () => {
         try {
           const response = await axios.get('https://c46c-41-223-98-194.ngrok-free.app/api/data');
-          // dispatch(addAllProduits(response.data));
+          dispatch(addAllProduits(response.data));
           // alert(JSON.stringify(response.data))
+
           dispatch(addAllCategories(response.data));
           // alert(JSON.stringify(response.data))
         } catch (error) {
