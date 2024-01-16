@@ -5,6 +5,7 @@ import { allproduits } from '../slices/ProduitSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { allcategories } from '../slices/CategorieSlice';
 import Head from '../components/Head';
+import { Icon } from 'react-native-elements';
 
 // {
 //   "id": 1,
@@ -25,7 +26,12 @@ const Home = ({navigation}) => {
     
     const renderProduct = ({item}) => (
          <View>
-              <View style={{ padding:10,marginLeft:10,borderRadius:10 ,backgroundColor:'#fff'}}>
+              <View style={{ padding:10,marginLeft:10,borderRadius:10 ,backgroundColor:'#fff',position:'relative'}}>
+              {/* <View style={{ position:'absolute',backgroundColor:'#cc7c87',zIndex:100,right:7,borderRadius:100,top:7}}>
+                 <TouchableOpacity>
+                    <Icon name='close' color='#fff' />
+                 </TouchableOpacity>
+              </View> */}
               <Image
                     source={{ uri:item.image }} 
                     style={{ height:100,backgroundColor:'transparent',width:150,}}
@@ -35,11 +41,14 @@ const Home = ({navigation}) => {
                <TouchableOpacity style={{ width:'100%',backgroundColor:'#6588bf',marginTop:5 }}>
                   <Text style={{ color:'#ebebeb',textAlign: 'center' }}>Add to cards</Text>
                </TouchableOpacity>
+               {/* <TouchableOpacity disabled style={{ width:'100%',backgroundColor:'#84e8b3',marginTop:5 }}>
+                  <Text style={{ color:'#ffff',textAlign: 'center',fontStyle:'italic'}}>selected</Text>
+               </TouchableOpacity> */}
               </View>
          </View>
     );
     const renderItem = ({ item }) => (
-      <View  style={{ marginTop:20 }}>
+      <View  style={{ marginTop:20}}>
         <View style={{ marginBottom:10,marginLeft:10,flexDirection:'row' ,justifyContent:'space-between'}}>
         <Text style={{ fontSize:25,fontWeight:400,color:'#6a6b6b' }}>{item}</Text>
        <TouchableOpacity         
@@ -59,7 +68,6 @@ const Home = ({navigation}) => {
             />
 
       </View>
-      
     );
   return (
     <View style={{ flex:1 }}>
