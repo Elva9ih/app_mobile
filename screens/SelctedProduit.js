@@ -1,25 +1,23 @@
 import { View, Text, Image, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import Produit from '../components/Produit';
-import { allproduits } from '../slices/ProduitSlice';
-import { Icon } from 'react-native-elements';
-import { allcategories } from '../slices/CategorieSlice';
+import { allventeproduits, deleteAllProduitVent, totalprix } from '../slices/ListProduitSlice';
 
 const SelctedProduit = () => {
-
-    const produits = useSelector(allproduits);
-    // alert(JSON.stringify(categories))
+    const dispatch=useDispatch();
+    const allproduits = useSelector(allventeproduits);
+    const totale = useSelector(totalprix);
     const renderItem = ({ item }) => (
           <Produit
-              key={item.id}
               id={item.id}
               name={item.name}
               prix={item?.prix}
               quantite={item.quantite}
               image={item.image}
               categorie={item.categorie}
+              qty={item.qty}
             />
       );
   return (
@@ -30,16 +28,16 @@ const SelctedProduit = () => {
         {/* featured */}
             <View style={{ alignItems:'center',backgroundColor:'#ededed',height:630}}>
                 <FlatList
-                data={produits}
+                data={allproduits.listproduit}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
-                numColumns={1} // Set the number of columns to 3
+                numColumns={1} 
                 />
             </View>
             <View style={{ margin:3 ,flexDirection:'row', justifyContent:'center', marginTop:25}}>
               <Text style={{ fontSize: 25,fontWeight:500, color: 'black' }}>Totale =</Text>
-              <Text style={{ fontSize: 25,fontWeight:400, color: 'black' }}>10000 MRU</Text>
+              <Text style={{ fontSize: 25,fontWeight:400, color: 'black' }}>{totale} MRU</Text>
             </View>
             <View style={{ flexDirection:'row' ,justifyContent:'center',marginTop:20}}>
                 <TouchableOpacity
@@ -50,11 +48,9 @@ const SelctedProduit = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: 7,
-                  // marginLeft:10,
                 }}
                 onPress={() => {
-                  // dispatch(deleteAllMyCartItem())
-                  // dispatch(deleteAlldemand())
+                  dispatch(deleteAllProduitVent())
                 }}
               >
                 <Text style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Suprimer</Text>

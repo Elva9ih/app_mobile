@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { decrement, deleteProduitVent, increment } from '../slices/ListProduitSlice';
 
-const Produit = ({ id, name, quantite, prix, image }) => {
+const Produit = ({ id, name, quantite, prix, image,qty }) => {
+  const dispatch=useDispatch();
   return (
     <View style={{  backgroundColor: 'white', margin: 2, padding: 2, width: 380, flexDirection: 'row' ,justifyContent:'space-between',marginTop:10}}>
       <View style={{flexDirection: 'row' }}>
@@ -18,15 +21,30 @@ const Produit = ({ id, name, quantite, prix, image }) => {
         </View>
         <View style={{ flexDirection:'row',alignItems:'center',justifyContent:'center' }}>
           <View style={{justifyContent:'center',alignItems:'center',marginRight:10}}>
-            <TouchableOpacity style={{ backgroundColor:'#6588bf', borderRadius:100,width:20,marginRight:5,alignItems:'center' }}>
+            <TouchableOpacity 
+              style={{ backgroundColor:'#6588bf', borderRadius:100,width:20,marginRight:5,alignItems:'center' }}
+              onPress={() => {
+                dispatch(increment(id))
+              }}
+            >
                   <Text style={{ fontSize: 20, color: 'white' }} >+</Text>
             </TouchableOpacity>
-              <Text style={{ fontSize: 20, color: 'black' }} >3</Text>
-            <TouchableOpacity style={{ backgroundColor:'#6588bf', borderRadius:100,width:20,marginRight:5,marginTop:3,alignItems:'center' }}>
+              <Text style={{ fontSize: 20, color: 'black' }} >{qty}</Text>
+            <TouchableOpacity 
+              style={{ backgroundColor:'#6588bf', borderRadius:100,width:20,marginRight:5,marginTop:3,alignItems:'center' }}
+              // onPress={dispatch(decrement(id))}
+              onPress={() => {
+                dispatch(decrement(id))
+              }}
+            >
                   <Text style={{ fontSize: 20, color: 'white' }} >-</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{  borderRadius:100,width:20,marginRight:5,marginTop:3,alignItems:'center' }}>
+          <TouchableOpacity style={{  borderRadius:100,width:20,marginRight:5,marginTop:3,alignItems:'center' }}
+          onPress={() => {
+            dispatch(deleteProduitVent(id))
+          }}
+          >
                 <Text style={{ fontSize: 20, color: '#9e5f52' }} >x</Text>
           </TouchableOpacity>
       </View>

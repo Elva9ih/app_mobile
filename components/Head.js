@@ -5,8 +5,12 @@ import { Icon } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import Search from './Search';
 import { useNavigation } from '@react-navigation/native';
+import {  countProduits } from '../slices/ListProduitSlice';
+import { useSelector } from 'react-redux';
 
 const Head = () => {
+  const count = useSelector(countProduits);
+
   const navigation=useNavigation()
   return (
     <View>
@@ -26,7 +30,7 @@ const Head = () => {
     </View>
    </View>
         <View style={{ backgroundColor:'#b5656d',position:'absolute',padding:2,borderRadius:200,right:15,top:9}}>
-             <Text style={{ fontSize:12,color:'white'}}> 2 </Text>
+             <Text style={{ fontSize:12,color:'white'}}> {count} </Text>
         </View>
     </View>
   )

@@ -1,28 +1,17 @@
 import { View, TextInput,Image, Text, StyleSheet, FlatList} from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { allproduits } from '../slices/ProduitSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { allcategories } from '../slices/CategorieSlice';
 import Head from '../components/Head';
-
-// {
-//   "id": 1,
-//   "name": "Samsung Newsroom",
-//   "prix": "67.78",
-//   "quantite": 12,
-//   "categorie": "television",
-//   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFajf7c7Wnd5zynfPyV-QFnS1lNkBtX2IlaQ&usqp=CAU",
-//   "created_at": "2023-12-11T09:35:44.000000Z",
-//   "updated_at": "2023-12-11T09:35:44.000000Z"
-//   },
-
+import { addProduitVent } from '../slices/ListProduitSlice';
 
 
 const Home = ({navigation}) => {
+  const dispatch=useDispatch()
     const myProducts = useSelector(allproduits);
     const categories = useSelector(allcategories);
-    
     const renderProduct = ({item}) => (
          <View>
               <View style={{ padding:10,marginLeft:10,borderRadius:10 ,backgroundColor:'#fff'}}>
@@ -32,7 +21,12 @@ const Home = ({navigation}) => {
               />
               <Text style={{ color:'#8b8c8c',fontSize:14,fontWeight:300 }}>{item.name}</Text>
               <Text style={{ color:'#8b8c8c',fontSize:15,fontWeight:500 }}>{item.quantite + " unité"}</Text>
-               <TouchableOpacity style={{ width:'100%',backgroundColor:'#6588bf',marginTop:5 }}>
+               <TouchableOpacity 
+               style={{ width:'100%',backgroundColor:'#6588bf',marginTop:5 }}
+               onPress={() => {
+                dispatch(addProduitVent(item));
+                }}
+               >
                   <Text style={{ color:'#ebebeb',textAlign: 'center' }}>Add to cards</Text>
                </TouchableOpacity>
               </View>
