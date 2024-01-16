@@ -1,15 +1,38 @@
-// LoginScreen.js
+// SigneUpScreen.js
 
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, Text,Keyboard, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you want to use FontAwesome icons
 import { CheckBox } from 'react-native-elements';
 
-const LoginScreen = ({navigation}) => {
+const SigneUpScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -24,11 +47,15 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <Image
+    {isKeyboardVisible ? '':(
+ <Image
       source={require('../assets/loginImage.png')}
       style={styles.image}
 
     />
+    )
+    }
+   
         <View style={styles.buttons}>
         <TextInput
         style={styles.input}
@@ -40,13 +67,34 @@ const LoginScreen = ({navigation}) => {
        <View style={styles.iconDel}>
         <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color="#6588bf" onPress={toggleShowPassword} />
       </View>
+      
          <View style={styles.iconContainer}>
         <Icon name="user" size={20} color="#6588bf" />
 
       </View>
+      <View style={styles.iconphone}>
+        <Icon name="phone" size={20} color="#6588bf" />
 
+      </View>
+      <View style={styles.email}>
+        <Icon name="envelope" size={20} color="#6588bf" />
+
+      </View>
       {/* Username TextInput */}
       <TextInput
+        style={styles.input}
+        placeholder="Phone"
+        secureTextEntry={!showPassword}
+        onChangeText={(phone) => setPassword(phone)}
+        value={phone}
+      />
+        <TextInput
+        style={styles.input}
+        placeholder="E-mail"
+        onChangeText={(email) => setPassword(email)}
+        value={email}
+      />
+        <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={!showPassword}
@@ -61,25 +109,21 @@ const LoginScreen = ({navigation}) => {
                   containerStyle={styles.checkBoxContainer}
                   onPress={() => setIsChecked(!isChecked)}
                 />
-                <TouchableOpacity>
-                    <Text style={styles.forget}>Forget your password ?</Text>
-                </TouchableOpacity>
+
          </View>
         </View>
      
 
    <View style={styles.mbot}>
    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login </Text>
+        <Text style={styles.buttonText}>Signe Up </Text>
         <Icon name="angle-right" size={30} color="white" />
       </TouchableOpacity> 
       <View style={styles.signeup}>
-           <Text>Go to </Text>
-           <TouchableOpacity 
-            onPress={() => navigation.navigate('SigneUp')}
-            >
-           <Text style={styles.forget}> Signe Up </Text>
-      </TouchableOpacity> 
+           <Text>Back to </Text>
+           <TouchableOpacity  onPress={() => navigation.navigate('Login')}>
+           <Text style={styles.forget}> Login </Text>
+           </TouchableOpacity>
       </View>
    </View>
 
@@ -95,6 +139,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     backgroundColor: '#ffffff',
+  },
+  iconphone:{
+    position: 'absolute',
+    right: 15, // Adjust the left position as needed
+    top: 83, // Adjust the top position as needed
+    zIndex: 1, // To position the icon above the TextInput
   },
    image:{
        height:290,
@@ -117,7 +167,8 @@ const styles = StyleSheet.create({
    check:{
     width:'100%',
     flexDirection:'row',
-    justifyContent:'space-between',
+    justifyContent:'center',
+    marginTop:-20,
     alignItems:'center'
    },
   input: {
@@ -165,9 +216,15 @@ const styles = StyleSheet.create({
   iconDel: {
     position: 'absolute',
     right: 15, // Adjust the right position as needed
-    top: 80, // Adjust the top position as needed
+    top: 212, // Adjust the top position as needed
+    zIndex: 1, // To position the icon above the TextInput
+  },
+  email: {
+    position: 'absolute',
+    right: 15, // Adjust the right position as needed
+    top: 146, // Adjust the top position as needed
     zIndex: 1, // To position the icon above the TextInput
   },
 });
 
-export default LoginScreen;
+export default SigneUpScreen;

@@ -17,20 +17,16 @@ const ListProduitSlice = createSlice({
     },
     decrement: (state, action) => {
       const itemIndex = state.listproduit.findIndex(item => item.id === action.payload);
+    
       if (itemIndex !== -1) {
-        const updatedQty = state.listproduit[itemIndex].qty - 1;
+        const currentQty = state.listproduit[itemIndex].qty;
+        const updatedQty = Math.max(currentQty - 1, 1);
         const updatedListProduit = [...state.listproduit];
         updatedListProduit[itemIndex] = { ...state.listproduit[itemIndex], qty: updatedQty };
-    
-        if (updatedQty === 0) {
-          console.log('delete');
-          return { ...state, listproduit: updatedListProduit.filter(item => item.id !== action.payload) };
-        } else {
-          return { ...state, listproduit: updatedListProduit };
-        }
+        return { ...state, listproduit: updatedListProduit };
       }
       return state;
-    },
+    },    
     deleteProduitVent: (state, action) => {
       return { ...state, listproduit: state.listproduit.filter(item => item.id !== action.payload) };
     },
@@ -39,6 +35,7 @@ const ListProduitSlice = createSlice({
       return { ...state, listproduit: [] };
     },
   },
+  
 });
 
 export const {

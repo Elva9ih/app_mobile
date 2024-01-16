@@ -1,41 +1,95 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import { Button, Icon, Text } from 'react-native-elements';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
-const Menu = () => {
-    return (
-        <View style={{ backgroundColor:'#cfdee3',flex:1 }}>
-              <View>
-                   <TouchableOpacity style={{ alignSelf:'center',
-                   flexDirection:'row',marginTop:40,backgroundColor:'#6593c2',borderRadius:20,padding:10,justifyContent:'space-evenly', }}>
-                        <Icon name="login" color="white" size={40}/>
-                        <Text style={{ fontSize:30,color:"white" }}> Connection</Text>
-                   </TouchableOpacity>
-                 </View>
-
-                 <View style={{flexWrap:'wrap' }}>
-                 <Text style={{ marginTop:40,fontSize:30 }}>Contacts</Text>
-                   <TouchableOpacity style={{ alignSelf:'center',
-                   flexDirection:'row',flexWrap:'wrap',marginTop:40,borderRadius:20,padding:10,justifyContent:'space-evenly', }}>
-                        <Icon name="facebook" color="white" size={40}/>
-                        <Icon name="facebook" color="white" size={40}/>
-                        <Icon name="facebook" color="white" size={40}/>
-                   </TouchableOpacity>
-                 </View>
-
+const ContactPage = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.overlay}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Contact Us</Text>
         </View>
-    );
-}
+        <View style={styles.contentContainer}>
+          <View style={styles.contactInfoContainer}>
+            <FontAwesome name="facebook-square" size={30} color="#1877f2" style={styles.icon} />
+            <Text style={styles.contactInfo}>facebook.com/yourpage</Text>
+          </View>
+          <View style={styles.contactInfoContainer}>
+            <FontAwesome name="whatsapp" size={30} color="#25d366" style={styles.icon} />
+            <Text style={styles.contactInfo}>+123456789</Text>
+          </View>
+          <View style={styles.contactInfoContainer}>
+            <FontAwesome name="twitter" size={30} color="#1da1f2" style={styles.icon} />
+            <Text style={styles.contactInfo}>@yourtwitter</Text>
+          </View>
+          <View style={styles.contactInfoContainer}>
+            <MaterialIcons name="email" size={30} color="#ff5722" style={styles.icon} />
+            <Text style={styles.contactInfo}>contact@yourdomain.com</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text style={styles.buttonText}>Connexion</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
 
-const styles = {
-    buttonStyle: {
-      backgroundColor: '#6588bf', // Button background color
-      borderRadius: 40,
-      marginVertical: 100,
-      width:'70%',
-      height:20,
-      alignSelf: 'center'
-    },
-  };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent overlay for better text visibility
+    padding: 20,
+    width: '80%',
+    height: '70%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  header: {
+    marginBottom: 20,
+  },
+  headerText: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contactInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  contactInfo: {
+    fontSize: 18,
+    color: '#333',
+  },
+  buttonContainer: {
+    backgroundColor: '#6588bf',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    width: '80%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+  },
+});
 
-export default Menu;
+export default ContactPage;

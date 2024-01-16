@@ -16,7 +16,11 @@ const Head = () => {
     <View>
     <View style={{ flexDirection:'column',justifyContent:'center' }}>
     <View style={styles.searsh_vente}>
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={() => {
+      navigation.navigate("Menu");
+    }}
+    >
     <Icon name="menu" size={40} color="#7f8282" />
     </TouchableOpacity>
         <Search/>

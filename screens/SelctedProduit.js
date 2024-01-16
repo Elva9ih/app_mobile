@@ -1,11 +1,21 @@
 import { View, Text, Image, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import Produit from '../components/Produit';
 import { allventeproduits, deleteAllProduitVent, totalprix } from '../slices/ListProduitSlice';
+import ModalComponent from '../components/ModalComponent';
 
 const SelctedProduit = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
     const dispatch=useDispatch();
     const allproduits = useSelector(allventeproduits);
     const totale = useSelector(totalprix);
@@ -65,12 +75,9 @@ const SelctedProduit = () => {
               borderRadius: 7,
               marginLeft:35,
             }}
-            onPress={() => {
-              // dispatch(deleteAllMyCartItem())
-              // dispatch(deleteAlldemand())
-            }}
+            onPress={openModal}
           >
-             <Text style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Confirmer</Text>
+             <Text  style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Confirmer</Text>
           </TouchableOpacity>
           {/* <TouchableOpacity
             style={{
@@ -90,7 +97,8 @@ const SelctedProduit = () => {
              <Icon name='trash' size={18} type='font-awesome' color='white'/>
           </TouchableOpacity> */}
             </View>
-          
+            <ModalComponent visible={modalVisible} onClose={closeModal} />
+
         </View>
         
     </SafeAreaView>
