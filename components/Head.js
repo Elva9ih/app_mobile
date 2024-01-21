@@ -3,7 +3,6 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import Search from './Search';
 import { useNavigation } from '@react-navigation/native';
 import {  countProduits } from '../slices/ListProduitSlice';
 import { useSelector } from 'react-redux';
@@ -23,7 +22,20 @@ const Head = () => {
     >
     <Icon name="menu" size={40} color="#7f8282" />
     </TouchableOpacity>
-        <Search/>
+    <View style={{ width:'70%',flexDirection:'row'}}>
+      <View style={{top:12,left:10,zIndex:2}}>
+        <Icon name='search' size={18} type='font-awesome' color='#7f8282'/>
+    </View>
+    <TextInpu
+      style={{ backgroundColor: 'white', height: 38, width: '96%',right:15, borderRadius: 10, padding: 1, paddingLeft: 38 }}
+    //   value={search}
+      placeholder='Search'
+      underlineColorAndroid='transparent'
+      // onChangeText={handleSearch}
+    />
+
+
+  </View>
         <TouchableOpacity style={{ right:6,bottom:2 }}
          onPress={() => {
           navigation.navigate("ListProduits");

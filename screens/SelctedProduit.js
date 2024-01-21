@@ -8,7 +8,7 @@ import ModalComponent from '../components/ModalComponent';
 
 const SelctedProduit = () => {
   const [modalVisible, setModalVisible] = useState(false);
-
+const data=useSelector(allventeproduits)
   const openModal = () => {
     setModalVisible(true);
   };
@@ -97,7 +97,11 @@ const SelctedProduit = () => {
              <Icon name='trash' size={18} type='font-awesome' color='white'/>
           </TouchableOpacity> */}
             </View>
-            <ModalComponent visible={modalVisible} onClose={closeModal} />
+            <ModalComponent
+             visible={modalVisible} 
+             onClose={closeModal} 
+             da={allproduits.listproduit}
+             />
 
         </View>
         

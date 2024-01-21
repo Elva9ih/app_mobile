@@ -1,8 +1,23 @@
+import axios from 'axios';
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const ModalComponent = ({ visible, onClose }) => {
+const ModalComponent = ({ visible, onClose ,da}) => {
+
+  // const handlePostRequest = (da) => {
+  //   // console.log(JSON.da)
+  //   axios.post('https://6e66-41-223-98-194.ngrok-free.app/api/produits', da)
+  //   .then(response => {
+  //     console.log('Response:', response.data);
+  //     // Handle successful response here
+  //   })
+  //   .catch(error => {
+  //     console.error('Error:', error);
+  //     // Handle error here
+  //   });
+     
+  // };
   return (
     <Modal
       animationType="slide"
@@ -14,7 +29,10 @@ const ModalComponent = ({ visible, onClose }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
         <Text style={{ fontSize:25,color:'#303030',marginBottom:35,borderBottomColor:'#bfbfbf',borderBottomWidth:1 }}>Payement Methodes</Text>
-          <TouchableOpacity style={{ flexDirection:'row',marginBottom:20 }}>
+          <TouchableOpacity
+           style={{ flexDirection:'row',marginBottom:20 }}
+          //  onPress={handlePostRequest(da)}
+           >
           <Icon
         name="paypal"
         type="font-awesome"
@@ -24,7 +42,11 @@ const ModalComponent = ({ visible, onClose }) => {
         <Text style={{ fontSize:20,color:'#696969' }}> payPal</Text>
 
           </TouchableOpacity>
-          <TouchableOpacity style={{ flexDirection:'row',marginBottom:30 }}>
+          <TouchableOpacity 
+          style={{ flexDirection:'row',marginBottom:30 }}
+          // onPress={handlePostRequest(da)}
+
+          >
           <Icon
         name="cc-mastercard"
         type="font-awesome"
