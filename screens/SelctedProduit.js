@@ -6,6 +6,7 @@ import Produit from '../components/Produit';
 import { allventeproduits, deleteAllProduitVent, totalprix } from '../slices/ListProduitSlice';
 import ModalComponent from '../components/ModalComponent';
 import { TextInput } from 'react-native-gesture-handler';
+import PrintPdf from '../components/PrintPdf';
 
 const SelctedProduit = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -132,37 +133,7 @@ const data=useSelector(allventeproduits)
           >
              <Text  style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Confirmer</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: "30%",
-              height: 40,
-              backgroundColor: "gray",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 7,
-              marginLeft:35,
-            }}
-            onPress={openModal}
-          >
-             <Text  style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Imprimer</Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity
-            style={{
-              width: "28%",
-              height: 30,
-              backgroundColor: "#c71e1e",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 7,
-              margin:2,
-            }}
-            onPress={() => {
-              // dispatch(deleteAllMyCartItem())
-              // dispatch(deleteAlldemand())
-            }}
-          >
-             <Icon name='trash' size={18} type='font-awesome' color='white'/>
-          </TouchableOpacity> */}
+            <PrintPdf/>
             </View>
             <ModalComponent
              visible={modalVisible} 

@@ -7,11 +7,12 @@ const PayementComponent = ({ visible, onClose ,handleTypePayement}) => {
     const [data,setData] = useState({});
   useEffect( async() => {
         //type_payement
-        const response = await axios.get('https://14e1-41-223-98-66.ngrok-free.app/api/paeiment/data');
+        const response = await axios.get('https://c1ca-41-188-104-179.ngrok-free.app/api/paeiment/data');
         setData(response.data);
-        // alert(JSON.stringify(response.data))
+        alert(JSON.stringify(response.data))
     
   },[])
+  // alert(JSON.stringify(data))
  const renderType = ({item}) => {
     return (
         <View>
@@ -39,7 +40,7 @@ const PayementComponent = ({ visible, onClose ,handleTypePayement}) => {
         <Text style={{ fontSize:25,color:'#303030',marginBottom:35,borderBottomColor:'#bfbfbf',borderBottomWidth:1 }}>Payement Methodes</Text>
      <FlatList
             data={data}
-            keyExtractor={(item)=>item.id.toString()}
+            keyExtractor={(item)=>item.type_paiement.toString()}
             renderItem={renderType}
             numColumns={1}
             style={{ maxHeight:200,overflow:'scroll' }}
