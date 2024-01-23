@@ -54,6 +54,7 @@ export const totalprix = (state) => {
   const totalPrice = state.listproduits.listproduit.reduce((total, item) => total + parseFloat(item.prix) * item.qty, 0);
   return parseFloat(totalPrice.toFixed(2));
 };
+
 export const allventeproduits = (state) => state.listproduits;
 
 export default ListProduitSlice.reducer;

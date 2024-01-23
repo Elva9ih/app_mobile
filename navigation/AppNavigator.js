@@ -9,6 +9,7 @@ import Menu from '../screens/Menu';
 import LoginScreen from '../components/Login';
 import SigneUpScreen from '../components/SigneUp';
 import Codebar from '../components/Codebar';
+import Methodes from '../components/Methodes';
 const Stack = createStackNavigator();
 
 const AppNavigator = () => (

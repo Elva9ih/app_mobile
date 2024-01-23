@@ -1,13 +1,36 @@
-import { View, Text, Image, SafeAreaView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, SafeAreaView, TouchableOpacity, Keyboard } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import Produit from '../components/Produit';
 import { allventeproduits, deleteAllProduitVent, totalprix } from '../slices/ListProduitSlice';
 import ModalComponent from '../components/ModalComponent';
+import { TextInput } from 'react-native-gesture-handler';
 
 const SelctedProduit = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+    
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+  const [remise, setRemise] = useState(0);
 const data=useSelector(allventeproduits)
   const openModal = () => {
     setModalVisible(true);
@@ -19,6 +42,7 @@ const data=useSelector(allventeproduits)
     const dispatch=useDispatch();
     const allproduits = useSelector(allventeproduits);
     const totale = useSelector(totalprix);
+    
     const renderItem = ({ item }) => (
           <Produit
               id={item.id}
@@ -36,7 +60,7 @@ const data=useSelector(allventeproduits)
       
       <View style={{ backgroundColor:'#ffff'}} >
         {/* featured */}
-            <View style={{ alignItems:'center',backgroundColor:'#ededed',height:630}}>
+            <View style={{ alignItems:'center',backgroundColor:'#ededed',height:isKeyboardVisible ? 200:500}}>
                 <FlatList
                 data={allproduits.listproduit}
                 showsVerticalScrollIndicator={false}
@@ -45,16 +69,45 @@ const data=useSelector(allventeproduits)
                 numColumns={1} 
                 />
             </View>
-            <View style={{ margin:3 ,flexDirection:'row', justifyContent:'center', marginTop:25}}>
-              <Text style={{ fontSize: 25,fontWeight:500, color: 'black' }}>Totale =</Text>
-              <Text style={{ fontSize: 25,fontWeight:400, color: 'black' }}>{totale} MRU</Text>
+
+            <View style={{ margin:3 ,flexDirection:'row', justifyContent:'space-between',alignItems:'center',margin:25, marginTop:25}}>
+              <Text style={{ fontSize: 20,paddingLeft: 2,paddingRight: 2, fontSize: 20,fontWeight:400, color: '#383838' }}>Totale = {totale} MRU</Text>
+              <Text style={{ fontSize: 16,fontWeight:300, color: 'black' }}>Remis :</Text>
+        <View
+        style={{  
+          textAlign:'center',
+          borderWidth: 0.5,
+          borderRadius: 8,
+          borderColor: 'gray',
+          flexDirection:'row',
+          alignItems:'center',
+          padding:2,
+          paddingLeft:2
+         }}
+         >
+        <TextInput
+         placeholder="remis.."
+         value={remise}
+         keyboardType='numeric'
+         onChangeText={(remise) => {if(remise <= 100){setRemise(remise)}}}
+
+         style={{  
+          textAlign:'center',
+
+         }}
+        />
+        <Text>%</Text>
+        </View>
+       
             </View>
-            <View style={{ flexDirection:'row' ,justifyContent:'center',marginTop:20}}>
+            <Text style={{paddingLeft: 2,paddingRight: 2, fontSize: 20,fontWeight:400,alignSelf: 'center', color: '#383838' }}>Prix = {totale} MRU</Text>
+
+            <View style={{ flexDirection:'row',width:'80%',alignSelf:'center' ,justifyContent:'space-evenly',marginTop:20}}>
                 <TouchableOpacity
                 style={{
                   width: "30%",
                   height: 40,
-                  backgroundColor: "#9e5f52",
+                  backgroundColor: "#b35049",
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: 7,
@@ -78,6 +131,20 @@ const data=useSelector(allventeproduits)
             onPress={openModal}
           >
              <Text  style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Confirmer</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              height: 40,
+              backgroundColor: "gray",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 7,
+              marginLeft:35,
+            }}
+            onPress={openModal}
+          >
+             <Text  style={{ fontSize:18 ,fontWeight:300,color:'white'}}>Imprimer</Text>
           </TouchableOpacity>
           {/* <TouchableOpacity
             style={{
