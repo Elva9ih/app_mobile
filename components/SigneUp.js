@@ -43,7 +43,7 @@ const SigneUpScreen = ({navigation}) => {
   };
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://961c-41-223-98-66.ngrok-free.app/api/users/register', {
+      const response = await fetch('https://fd2a-41-223-98-66.ngrok-free.app/api/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

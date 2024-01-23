@@ -2,10 +2,19 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Icon, Image } from 'react-native-elements';
 import { launchCamera } from 'react-native-image-picker';
+import PayementComponent from './PayementComponent';
 
 const Methodes = () => {
     const [imgUri,setImgUri] = useState("https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=")
-    const [typePayement,setTypePayement] = useState("Bankili");
+    const [typePayement,setTypePayement] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
+    const openModal = () => {
+        setModalVisible(true);
+      };
+    
+      const closeModal = () => {
+        setModalVisible(false);
+      };
     const handleTypePayement = (type) => {
         setTypePayement(type);
     }
@@ -15,7 +24,7 @@ const Methodes = () => {
   return (
     <View>
     <View style={{ justifyContent:'flex-end',height:50 }}>
-          <Text style={{ fontSize:25,textAlign:'center' }}>Total : <Text style={{ fontWeight:600 }}>200</Text> MRU</Text>
+          <Text style={{ fontSize:25,textAlign:'center',color:'#777878' }}>Total : <Text style={{ fontWeight:600 }}>200</Text> MRU</Text>
     </View>
       <Image resizeMode='contain' style={styles.img} source={{ uri:imgUri }}/>
       <View style={{justifyContent:'center',borderRadius:6,flexDirection:'row' }}>
@@ -34,36 +43,25 @@ const Methodes = () => {
                     <Text style={styles.textBrow}> Browser</Text>
                 </TouchableOpacity>
       </View>
-       <View style={{ justifyContent:'center',height:'auto',top:20 }}>
-       <Text style={{ height:50,fontSize:20,width:'80%',alignSelf:'center',justifyContent:'flex-end',textAlign:'center' }}>Type de payement: <Text style={{ fontWeight:600 }}>{typePayement}</Text></Text>
-              <View style={{ width:'80%',flexWrap:'wrap',justifyContent:'space-evenly',height:210,alignSelf:'center',flexDirection:'row' }}>
-                    <TouchableOpacity 
-                    onPress={() => {handleTypePayement("Bankili")}}
-                    style={{ borderRadius:10,height:40,justifyContent:'center',alignItems:'center',margin:10,width:80,backgroundColor:'#75ab3f' }}>
-                        <Text style={{ color:'white',fontSize:20 }}>Bankili</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                    onPress={() => {handleTypePayement("Masrivi")}}
-                    style={{ borderRadius:10,height:40,justifyContent:'center',alignItems:'center',margin:10,width:80,backgroundColor:'red' }}>
-                        <Text style={{ color:'white',fontSize:20 }}>Masrivi</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                    onPress={() => {handleTypePayement("Sedad")}}
-                    style={{ borderRadius:10,height:40,justifyContent:'center',alignItems:'center',margin:10,width:80,backgroundColor:'gray' }}>
-                        <Text style={{ color:'white',fontSize:20 }}>Sedad</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                    onPress={() => {handleTypePayement("Berid")}}
-                    style={{ borderRadius:10,height:40,justifyContent:'center',alignItems:'center',margin:10,width:80,backgroundColor:'blue' }}>
-                        <Text style={{ color:'white',fontSize:20 }}>Berid</Text>
-                    </TouchableOpacity>
-              </View>
+      {/* <Text style={{ height:50,marginTop:30,width:'80%',alignSelf:'center',textAlign:'center' }}>Vous pouver utiliser autres methodes de payement.</Text> */}
+
+       <View style={{ justifyContent:'center',flexDirection:'column',width:250,alignSelf:'center',alignItems:'center',height:100,top:80 }}>
+  
+            <TouchableOpacity onPress={openModal} style={{ width:100,height:100,borderColor:'gray',borderWidth:5,backgroundColor:'#6588bf',justifyContent:'center',alignItems:'center',borderRadius:100 }}>
+            <Text style={{textAlign:'center',color:'white',fontSize:10, padding:10, }}>Choisez Le type de payement</Text> 
+            </TouchableOpacity>
+            <Text style={{textAlign:'center',color:'#035363',fontSize:20, padding:10, }}> {typePayement}</Text>      
        </View>
 
               
-            <TouchableOpacity style={{ backgroundColor:'#4eab3f',borderRadius:20,width:'70%',alignSelf:'center',margin:10,height:50,justifyContent:'center',alignItems:'center' }}>
+            <TouchableOpacity style={{marginTop:180, backgroundColor:'#4eab3f',borderRadius:20,width:'70%',alignSelf:'center',margin:10,height:50,justifyContent:'center',alignItems:'center' }}>
                      <Text style={{color:'white',fontSize:25 }}>Valider</Text>
             </TouchableOpacity>
+            <PayementComponent
+               visible={modalVisible}
+               onClose={closeModal}
+               handleTypePayement={handleTypePayement}
+            />
     </View>
   )
 }

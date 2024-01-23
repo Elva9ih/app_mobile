@@ -154,7 +154,7 @@ const Home = ({navigation}) => {
     <View style={{ width:'70%',flexDirection:'row'}}>
       <View style={{top:12,left:10,zIndex:2}}>
         <Icon name='search' size={18} type='font-awesome' color='#7f8282'/>
-    </View >
+    </View>
       
     <View style={{ backgroundColor: 'white', height: 40, width: '90%',right:20, borderTopLeftRadius:20,borderBottomLeftRadius:20,  paddingLeft: 20 ,flexDirection:'row',justifyContent:'space-between'}} >
             
@@ -195,7 +195,7 @@ const Home = ({navigation}) => {
         </View>
     </View>
     {/* categorie */}
-         <View style={{ height:600,width:'100%',marginTop:35 }}>
+         <View style={{ height:650,width:'100%',marginTop:35 }}>
          <FlatList
             data={filteredData}
             keyExtractor={(item) => item}

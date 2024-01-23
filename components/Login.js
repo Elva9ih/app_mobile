@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you want to use FontAwesome icons
 import { CheckBox } from 'react-native-elements';
 import { SetConnexion } from '../slices/ConnexionSlice';
@@ -10,15 +10,35 @@ const LoginScreen = ({navigation}) => {
   const [telephone, setTelphone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch=useDispatch()
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
   // ################# Login ###########################
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://961c-41-223-98-66.ngrok-free.app/api/users/login', {
+      const response = await fetch('https://fd2a-41-223-98-66.ngrok-free.app/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,11 +69,13 @@ const LoginScreen = ({navigation}) => {
 // #########################################
   return (
     <View style={styles.container}>
+   {isKeyboardVisible?'':(
     <Image
       source={require('../assets/loginImage.png')}
       style={styles.image}
 
     />
+   )}
         <View style={styles.buttons}>
         {/* <TextInput
         style={styles.input}

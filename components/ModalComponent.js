@@ -1,10 +1,11 @@
+import { useNavigation } from '@react-navigation/core';
 import axios from 'axios';
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const ModalComponent = ({ visible, onClose ,da}) => {
-
+const ModalComponent = ({ visible, onClose }) => {
+         const navigation = useNavigation();
   // const handlePostRequest = (da) => {
   //   // console.log(JSON.da)
   //   axios.post('https://6e66-41-223-98-194.ngrok-free.app/api/produits', da)
@@ -58,9 +59,13 @@ const ModalComponent = ({ visible, onClose ,da}) => {
                      <Text style={{color:'white',fontSize:25 }}>Valider</Text>
             </TouchableOpacity>
         </View>
-        <Text style={{ height:50,width:'80%',alignSelf:'center',textAlign:'center' }}>Vous pouver utiliser autres methodes de payement.</Text>
+        <Text style={{ height:50,width:'80%',alignSelf:'center',textAlign:'center' }}>Vous pouvez utiliser autres methodes de payement.</Text>
         <View style={{ width:'100%' }}>
-            <TouchableOpacity style={{ backgroundColor:'#6588bf',width:'100%',height:50,justifyContent:'center',alignItems:'center' }}>
+            <TouchableOpacity          
+                 onPress={() => {
+                             navigation.navigate('Methodes');
+                           }}
+                    style={{ backgroundColor:'#6588bf',width:'100%',height:50,justifyContent:'center',alignItems:'center' }}>
                     <Text style={{ color:'white',fontSize:22 }}>Autre methodes</Text>
             </TouchableOpacity>
         </View>

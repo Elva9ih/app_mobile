@@ -11,7 +11,7 @@ const Main =()=>{
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('https://961c-41-223-98-66.ngrok-free.app/api/data');
+          const response = await axios.get('https://fd2a-41-223-98-66.ngrok-free.app/api/data');
           dispatch(addAllProduits(response.data));
           // alert(JSON.stringify(response.data))
 
