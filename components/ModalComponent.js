@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 const ModalComponent = ({ visible, onClose ,da}) => {
@@ -28,46 +28,45 @@ const ModalComponent = ({ visible, onClose ,da}) => {
 
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-        <Text style={{ fontSize:25,color:'#303030',marginBottom:35,borderBottomColor:'#bfbfbf',borderBottomWidth:1 }}>Payement Methodes</Text>
-          <TouchableOpacity
-           style={{ flexDirection:'row',marginBottom:20 }}
-          //  onPress={handlePostRequest(da)}
-           >
-          <Icon
-        name="paypal"
-        type="font-awesome"
-        size={30}
-        color="blue"
-      />
-        <Text style={{ fontSize:20,color:'#696969' }}> payPal</Text>
-
-          </TouchableOpacity>
-          <TouchableOpacity 
-          style={{ flexDirection:'row',marginBottom:30 }}
-          // onPress={handlePostRequest(da)}
-
-          >
-          <Icon
-        name="cc-mastercard"
-        type="font-awesome"
-        size={30}
-        color="#e38222"
-      />
-        <Text style={{ fontSize:20,color:'#696969' }}> masterCard</Text>
-
-          </TouchableOpacity>
-
-          <TouchableOpacity  onPress={onClose} style={{alignSelf:'center', flexDirection:'row', }}>
+          <View style={{ width:300}}>
+               <View style={{ width:'98%',height:70,bottom:20,justifyContent:'space-between',alignItems:'flex-end',fontSize:40,flexDirection:'row'}}>
+                     <Text style={{fontSize:20 }}>Prix : <Text style={{fontSize:20,fontWeight:600 }}>2000</Text> MRU.</Text>
+                     <TouchableOpacity  onPress={onClose} style={{alignSelf:'center', flexDirection:'row', }}>
           <Icon
         name="close"
-        size={25}
+        size={40}
         // type="font-awesome"
         color="#c45271"
       />
-              <Text style={{ fontSize:20,color:'#c45271',top:-2 }}>close</Text>
 
           </TouchableOpacity>
+               </View>
+               <View style={{ width:300,height:45,fontSize:40,flexDirection:'row',alignItems:'center' }}>
+                     
+                     <TextInput
+                     placeholder='Payer'
+                     keyboardType='numeric'
+                          style={{ width:'60%',borderColor:'#556582',borderBottomWidth:2,paddingLeft:10,fontSize:20 }}
+                     />
+                      <Text style={{fontSize:20,width:'30%',left:10 }}>MRU</Text>
+               </View>
+               <View style={{ width:200,height:60,fontSize:40 ,justifyContent:'center'}}>
+                     <Text style={{fontSize:20 }}>Rest : <Text style={{fontSize:20,fontWeight:600,color:'#945b38' }}>10</Text> MRU.</Text>
+               </View>
+          <View style={{ width:'100%',height:100,justifyContent:'center' }}>
+            <TouchableOpacity style={{ backgroundColor:'#4eab3f',borderRadius:20,width:'70%',alignSelf:'center',margin:10,height:50,justifyContent:'center',alignItems:'center' }}>
+                     <Text style={{color:'white',fontSize:25 }}>Valider</Text>
+            </TouchableOpacity>
         </View>
+        <Text style={{ height:50,width:'80%',alignSelf:'center',textAlign:'center' }}>Vous pouver utiliser autres methodes de payement.</Text>
+        <View style={{ width:'100%' }}>
+            <TouchableOpacity style={{ backgroundColor:'#6588bf',width:'100%',height:50,justifyContent:'center',alignItems:'center' }}>
+                    <Text style={{ color:'white',fontSize:22 }}>Autre methodes</Text>
+            </TouchableOpacity>
+        </View>
+          </View>
+        </View>
+       
       </View>
     </Modal>
   );

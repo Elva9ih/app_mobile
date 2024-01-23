@@ -8,11 +8,33 @@ import Categorie from '../screens/Categorie';
 import Menu from '../screens/Menu';
 import LoginScreen from '../components/Login';
 import SigneUpScreen from '../components/SigneUp';
+import Methodes from '../components/Methodes';
 const Stack = createStackNavigator();
 
 const AppNavigator = () => (
   <NavigationContainer >
     <Stack.Navigator >
+    <Stack.Screen
+        name="Methodes"
+        component={Methodes}
+        options={{ 
+          headerTitle:'Methodes de payement',
+        headerTitleStyle: {
+          color: 'white', 
+        },
+        headerLeft: () => (
+          <View style={{ marginRight: 20 }}>
+            <TouchableOpacity>
+              <Icon  size={30} name="arrow-left" type="font-awesome" color='whit e' />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#6588bf',
+          shadowColor: '#427D9D',
+        },
+         }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}
