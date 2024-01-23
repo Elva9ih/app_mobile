@@ -11,5 +11,5 @@ const ConnexionSlice = createSlice({
 });
 
 export const { SetConnexion } = ConnexionSlice.actions;
-export const ifConnexion = (state) => state.connexion; 
+export const Connexion = (state) => state.connexion; 
 export default ConnexionSlice.reducer;

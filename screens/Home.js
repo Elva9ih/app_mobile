@@ -1,5 +1,5 @@
 import { View, TextInput,Image, Text, StyleSheet, FlatList} from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { allproduits } from '../slices/ProduitSlice';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -7,11 +7,13 @@ import { allcategories } from '../slices/CategorieSlice';
 import Head from '../components/Head';
 import { addProduitVent, countProduits, deleteProduitVent } from '../slices/ListProduitSlice';
 import { Icon } from 'react-native-elements';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const Home = ({navigation}) => {
-  const dispatch=useDispatch()
+    const dispatch=useDispatch()
     const myProducts = useSelector(allproduits);
     const categories = useSelector(allcategories);
     const count = useSelector(countProduits);
@@ -27,6 +29,43 @@ const Home = ({navigation}) => {
       setFilteredData(categories);
     },);
 
+    // code bar
+      const [hasPermission, setHasPermission] = useState(null);
+      const [scanned, setScanned] = useState(false);
+      const [isCameraOpen, setIsCameraOpen] = useState(false);
+      const [data, setData] = useState('');
+      const scannerRef = useRef(null);
+    
+      useEffect(() => {
+        (async () => {
+          const { status } = await BarCodeScanner.requestPermissionsAsync();
+          setHasPermission(status === 'granted');
+        })();
+      }, []);
+      const closeCamera = () => {
+        setIsCameraOpen(false);
+      };
+      const handleBarCodeScanned = ({ data }) => {
+        setScanned(true);
+        setIsCameraOpen(false);
+        const foundProduct = myProducts.find(product => product.codebar === data);
+        if (foundProduct) {
+          dispatch(addProduitVent(foundProduct));
+        } else {
+          alert("Ce produit n'existe pas");
+        }
+      };
+    
+      const startScan = () => {
+        setScanned(false);
+        setIsCameraOpen(true);
+      };
+    
+      
+      if (hasPermission === false) {
+        return <Text>No access to camera</Text>;
+      }    
+    // 
     const renderProduct = ({item}) => (
          <View>
               <View style={{ padding:10,marginLeft:10,borderRadius:10 ,backgroundColor:'#fff'}}>
@@ -74,7 +113,7 @@ const Home = ({navigation}) => {
          </View>
     );
     const renderItem = ({ item }) => (
-      <View  style={{ marginTop:20}}>
+      <View  style={{ marginTop:0}} >
         <View style={{ marginBottom:10,marginLeft:10,flexDirection:'row' ,justifyContent:'space-between'}}>
         <Text style={{ fontSize:25,fontWeight:400,color:'#6a6b6b' }}>{item}</Text>
        <TouchableOpacity         
@@ -97,6 +136,8 @@ const Home = ({navigation}) => {
     );
     
   return (
+    <>
+    {!isCameraOpen && (
     <View style={{ flex:1 }}>
 
     {/*  searsh */}
@@ -113,14 +154,30 @@ const Home = ({navigation}) => {
     <View style={{ width:'70%',flexDirection:'row'}}>
       <View style={{top:12,left:10,zIndex:2}}>
         <Icon name='search' size={18} type='font-awesome' color='#7f8282'/>
+    </View >
+      
+    <View style={{ backgroundColor: 'white', height: 40, width: '90%',right:20, borderTopLeftRadius:20,borderBottomLeftRadius:20,  paddingLeft: 20 ,flexDirection:'row',justifyContent:'space-between'}} >
+            
+            <TextInput
+              style={{ backgroundColor: 'white', height: 40, width: '100%',right:20, borderRadius: 10, padding: 1, paddingLeft: 30 }}
+              placeholder='Search'
+              underlineColorAndroid='transparent'
+              onChangeText={handleSearch}
+              value={searchQuery}
+            />
+            {/* <Text>|</Text> */}
+            <View  style={{  backgroundColor: 'white' ,borderTopRightRadius:20,borderBottomRightRadius:20}}>
+              
+              <TouchableOpacity  
+              style={{  backgroundColor: 'white', height:  '100%' , width: '100%',borderTopRightRadius:12,borderBottomRightRadius:12,paddingTop:2,paddingRight:5 }}
+              onPress={startScan}
+              >
+                  <Icon name="qr-code" size={30} color="black" />
+                </TouchableOpacity> 
+            </View>
+             
     </View>
-    <TextInput
-      style={{ backgroundColor: 'white', height: 38, width: '96%',right:15, borderRadius: 10, padding: 1, paddingLeft: 38 }}
-      placeholder='Search'
-      underlineColorAndroid='transparent'
-      onChangeText={handleSearch}
-      value={searchQuery}
-    />
+       
 
 
   </View>
@@ -146,8 +203,32 @@ const Home = ({navigation}) => {
             style={{ backgroundColor:'#ededed' }}
         />
          </View>
-      
+    
     </View>
+    )}
+    {isCameraOpen && (
+      <>
+      <TouchableOpacity style={{ flexDirection:'row',
+      padding: 10,
+      margin: 10,
+      color:'red',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent:'flex-end' 
+      }} 
+      onPress={closeCamera}
+    >
+    <Text style={{ color: 'red',fontSize: 30}}>X</Text>
+  </TouchableOpacity>
+      <BarCodeScanner
+        ref={scannerRef}
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
+      </>
+  )}
+  
+  </>
   )
 }
 const styles = StyleSheet.create({

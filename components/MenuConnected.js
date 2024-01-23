@@ -3,17 +3,22 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Connexion } from '../slices/ConnexionSlice';
 
 const MenuConnected = () => {
+    const dispatch=useDispatch()
+    const conexion = useSelector(Connexion);
+    // alert(JSON.stringify(conexion))
     const navigation=useNavigation()
   return (
     <View style={styles.container}>
     <View style={styles.overlay}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Mohamed Ejlal</Text>
+        <Text style={styles.headerText}>{conexion.username}</Text>
       </View>
       <View style={styles.header}>
-        <Text style={styles.headerTextnumber}>+222 49252653</Text>
+        <Text style={styles.headerTextnumber}>+222 {conexion.telephone}</Text>
       </View>
       <View style={styles.contentContainer}>
       <Text style={{ fontWeight:'700' }}>Support et contact</Text>

@@ -5,9 +5,14 @@ const ListProduitSlice = createSlice({
   initialState: { listproduit: [] },
   reducers: {
     addProduitVent: (state, action) => {
-      console.log('add');
-      const newProduct = { ...action.payload, qty: 1 };
-      return { ...state, listproduit: [...state.listproduit, newProduct] };
+      const existingProduct = state.listproduit.find(product => product.codebar === action.payload.codebar);
+      if (existingProduct) {
+        alert("Ce produit existe déjà");
+        return state; 
+      } else {
+        const newProduct = { ...action.payload, qty: 1 };
+        return { ...state, listproduit: [...state.listproduit, newProduct] };
+      }
     },
     increment: (state, action) => {
       const itemIndex = state.listproduit.findIndex(item => item.id === action.payload);
@@ -31,7 +36,6 @@ const ListProduitSlice = createSlice({
       return { ...state, listproduit: state.listproduit.filter(item => item.id !== action.payload) };
     },
     deleteAllProduitVent: (state) => {
-      console.log('delete all');
       return { ...state, listproduit: [] };
     },
   },

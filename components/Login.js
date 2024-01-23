@@ -1,27 +1,52 @@
-// LoginScreen.js
-
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you want to use FontAwesome icons
 import { CheckBox } from 'react-native-elements';
+import { SetConnexion } from '../slices/ConnexionSlice';
 
 const LoginScreen = ({navigation}) => {
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
+  const [telephone, setTelphone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
+  const dispatch=useDispatch()
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleLogin = () => {
-    // Implement your authentication logic here
-    // For simplicity, let's just log the credentials for now
-    console.log('Username:', username);
-    console.log('Password:', password);
-    // Add your authentication logic (e.g., API calls) here
+  // ################# Login ###########################
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('https://961c-41-223-98-66.ngrok-free.app/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password: password,
+          telephone: telephone,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("L'authentification a échoué");
+      }
+      const data = await response.json();
+      if (data.userExists) {
+        console.log("Authentification réussie");
+        const connect={password,telephone}
+        dispatch(SetConnexion(connect))
+        setPassword('')
+        setTelphone('')
+        navigation.navigate('Home');
+      } else {
+        alert("L'utilisateur n'existe pas");
+      }
+    } catch (error) {
+      console.error('Erreur pendant l\'authentification :', error.message);
+    }
   };
-
+// #########################################
   return (
     <View style={styles.container}>
     <Image
@@ -30,22 +55,31 @@ const LoginScreen = ({navigation}) => {
 
     />
         <View style={styles.buttons}>
-        <TextInput
+        {/* <TextInput
         style={styles.input}
         placeholder="Username"
         onChangeText={(text) => setUsername(text)}
         value={username}
-      />
+      /> */}
 
        <View style={styles.iconDel}>
         <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color="#6588bf" onPress={toggleShowPassword} />
       </View>
-         <View style={styles.iconContainer}>
-        <Icon name="user" size={20} color="#6588bf" />
-
+      <View style={styles.iconPh}>
+        <Icon name='phone'  size={20} color="#6588bf" onPress={toggleShowPassword} />
       </View>
+      {/* <View style={styles.iconContainer}>
+          <Icon name="user" size={20} color="#6588bf" />
+      </View> */}
 
       {/* Username TextInput */}
+      <TextInput
+        style={styles.input}
+        placeholder="Telephone"
+        // secureTextEntry={!showPassword}
+        onChangeText={(text) => setTelphone(text)}
+        value={telephone}
+      />
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -165,7 +199,13 @@ const styles = StyleSheet.create({
   iconDel: {
     position: 'absolute',
     right: 15, // Adjust the right position as needed
-    top: 80, // Adjust the top position as needed
+    top: 81, // Adjust the top position as needed
+    zIndex: 1, // To position the icon above the TextInput
+  },
+  iconPh: {
+    position: 'absolute',
+    right: 20, // Adjust the right position as needed
+    top: 15, // Adjust the top position as needed
     zIndex: 1, // To position the icon above the TextInput
   },
 });

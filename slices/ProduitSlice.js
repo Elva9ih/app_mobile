@@ -20,9 +20,6 @@ const ProduitSlice = createSlice({
         if (itemIndex !== -1) {
           const updatedListProduit = [...state];
           updatedListProduit[itemIndex] = { ...selectedItem, selected: true };
-  
-          console.log(updatedListProduit[itemIndex]);
-  
           return updatedListProduit;
         }
         return state;
@@ -35,8 +32,6 @@ const ProduitSlice = createSlice({
           const updatedItem = { ...updatedListProduit[itemIndex] };
           delete updatedItem.selected;
           updatedListProduit[itemIndex] = updatedItem;
-          console.log(updatedListProduit[itemIndex]);
-  
           return updatedListProduit;
         }
   

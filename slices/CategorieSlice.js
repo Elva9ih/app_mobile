@@ -11,7 +11,6 @@ const CategorieSlice = createSlice({
                 uniqueCategoriesSet.add(product.categorie);
             });
             state=Array.from(uniqueCategoriesSet);
-        console.log(state)
   return Array.from(uniqueCategoriesSet);
     }
   },

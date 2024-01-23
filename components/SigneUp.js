@@ -8,9 +8,10 @@ import { CheckBox } from 'react-native-elements';
 const SigneUpScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [confPass, setConfPass] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -37,12 +38,40 @@ const SigneUpScreen = ({navigation}) => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleLogin = () => {
-    // Implement your authentication logic here
-    // For simplicity, let's just log the credentials for now
-    console.log('Username:', username);
-    console.log('Password:', password);
-    // Add your authentication logic (e.g., API calls) here
+  const toggleShowCPassword= () => {
+    setShowCPassword(!showCPassword);
+  };
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('https://961c-41-223-98-66.ngrok-free.app/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: username,
+          password: password,
+          telephone: telephone,
+          confPass:confPass,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("L'authentification a échoué");
+      }
+      const data = await response.json();
+      if (data.userExists) {
+        console.log("Authentification réussie");
+        setPassword('')
+        setConfPass('')
+        setUsername('')
+        setTelephone('')
+        navigation.navigate('Login');
+      } else {
+        alert("Veuillez vérifier le code de confirmation");
+      }
+    } catch (error) {
+      console.error('Erreur pendant l\'authentification :', error.message);
+    }
   };
 
   return (
@@ -65,7 +94,7 @@ const SigneUpScreen = ({navigation}) => {
       />
 
        <View style={styles.iconDel}>
-        <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color="#6588bf" onPress={toggleShowPassword} />
+        <Icon name={showCPassword ? 'eye' : 'eye-slash'} size={20} color="#6588bf" onPress={toggleShowCPassword} />
       </View>
       
          <View style={styles.iconContainer}>
@@ -77,22 +106,15 @@ const SigneUpScreen = ({navigation}) => {
 
       </View>
       <View style={styles.email}>
-        <Icon name="envelope" size={20} color="#6588bf" />
-
+        <Icon name={showPassword ? 'eye' : 'eye-slash'}  size={20} color="#6588bf" onPress={toggleShowPassword} />
       </View>
       {/* Username TextInput */}
       <TextInput
         style={styles.input}
         placeholder="Phone"
-        secureTextEntry={!showPassword}
-        onChangeText={(phone) => setPassword(phone)}
-        value={phone}
-      />
-        <TextInput
-        style={styles.input}
-        placeholder="E-mail"
-        onChangeText={(email) => setPassword(email)}
-        value={email}
+        // secureTextEntry={!showPassword}
+        onChangeText={(telephone) => setTelephone(telephone)}
+        value={telephone}
       />
         <TextInput
         style={styles.input}
@@ -101,15 +123,21 @@ const SigneUpScreen = ({navigation}) => {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirmer Password"
+        secureTextEntry={!showCPassword}
+        onChangeText={(confPass) => setConfPass(confPass)}
+        value={confPass}
+      />
         <View style={styles.check}>
-                <CheckBox 
-                  title="Remember me"
-                  checkedColor="#6588bf"  // Change the checked color
-                  checked={isChecked}
-                  containerStyle={styles.checkBoxContainer}
-                  onPress={() => setIsChecked(!isChecked)}
-                />
-
+              <CheckBox 
+                title="Remember me"
+                checkedColor="#6588bf"  // Change the checked color
+                checked={isChecked}
+                containerStyle={styles.checkBoxContainer}
+                onPress={() => setIsChecked(!isChecked)}
+              />
          </View>
         </View>
      

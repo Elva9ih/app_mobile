@@ -8,11 +8,55 @@ import Categorie from '../screens/Categorie';
 import Menu from '../screens/Menu';
 import LoginScreen from '../components/Login';
 import SigneUpScreen from '../components/SigneUp';
+import Codebar from '../components/Codebar';
 const Stack = createStackNavigator();
 
 const AppNavigator = () => (
   <NavigationContainer >
     <Stack.Navigator >
+      
+    <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ 
+          headerTitle:'Menu',
+        headerTitleStyle: {
+          color: 'white', 
+        },
+        headerRight: () => (
+          <View style={{ marginRight: 20 }}>
+            <TouchableOpacity>
+              <Icon name='user' size={30} type='font-awesome' color='white' />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#6588bf',
+          shadowColor: '#427D9D',
+        },
+         }}
+      />
+      <Stack.Screen
+        name="SigneUp"
+        component={SigneUpScreen}
+        options={{ 
+          headerTitle:'Menu',
+        headerTitleStyle: {
+          color: 'white', 
+        },
+        headerRight: () => (
+          <View style={{ marginRight: 20 }}>
+            <TouchableOpacity>
+              <Icon name='user' size={30} type='font-awesome' color='white' />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerStyle: {
+          backgroundColor: '#6588bf',
+          shadowColor: '#427D9D',
+        },
+         }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}
@@ -79,48 +123,6 @@ const AppNavigator = () => (
       <Stack.Screen
         name="Menu"
         component={Menu}
-        options={{ 
-          headerTitle:'Menu',
-        headerTitleStyle: {
-          color: 'white', 
-        },
-        headerRight: () => (
-          <View style={{ marginRight: 20 }}>
-            <TouchableOpacity>
-              <Icon name='user' size={30} type='font-awesome' color='white' />
-            </TouchableOpacity>
-          </View>
-        ),
-        headerStyle: {
-          backgroundColor: '#6588bf',
-          shadowColor: '#427D9D',
-        },
-         }}
-      />
-       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ 
-          headerTitle:'Menu',
-        headerTitleStyle: {
-          color: 'white', 
-        },
-        headerRight: () => (
-          <View style={{ marginRight: 20 }}>
-            <TouchableOpacity>
-              <Icon name='user' size={30} type='font-awesome' color='white' />
-            </TouchableOpacity>
-          </View>
-        ),
-        headerStyle: {
-          backgroundColor: '#6588bf',
-          shadowColor: '#427D9D',
-        },
-         }}
-      />
-      <Stack.Screen
-        name="SigneUp"
-        component={SigneUpScreen}
         options={{ 
           headerTitle:'Menu',
         headerTitleStyle: {
