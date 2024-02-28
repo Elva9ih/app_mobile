@@ -36,7 +36,7 @@ const Search = () => {
     return (
   <View style={{ width:'70%',flexDirection:'row'}}>
       <View style={{top:12,left:10,zIndex:2}}>
-        <Icon name='search' size={18} type='font-awesome' color='#7f8282'/>
+        <Icon name='droit' size={18} type='font-awesome' color='#7f8282'/>
     </View>
     <TextInput
       style={{ backgroundColor: 'white', height: 38, width: '96%',right:15, borderRadius: 10, padding: 1, paddingLeft: 38 }}

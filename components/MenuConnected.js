@@ -5,23 +5,29 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Connexion } from '../slices/ConnexionSlice';
-
+import {Icon} from 'react-native-elements'
 const MenuConnected = () => {
     const dispatch=useDispatch()
     const conexion = useSelector(Connexion);
-    // alert(JSON.stringify(conexion))
     const navigation=useNavigation()
+    
   return (
     <View style={styles.container}>
     <View style={styles.overlay}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>{conexion.username}</Text>
-      </View>
-      <View style={styles.header}>
-        <Text style={styles.headerTextnumber}>+222 {conexion.telephone}</Text>
-      </View>
+      <TouchableOpacity style={styles.header}
+      onPress={()=>{navigation.navigate('JournalisationType')}}
+      >
+        <View style={{ flexDirection:'row',width:'96%',justifyContent:'space-between' }}>
+        <Text style={styles.headerText}>Med Ejlal</Text>
+        <Text style={{ fontSize:20,fontWeight:800,justifyContent:'center',color:'#595959' }}>+222 {conexion.telephone} </Text>
+        </View>
+        <View style={{ justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
+          <Text style={{ fontSize:18,fontWeight:'600',marginRight:10 ,color:'#6986d6'}}>journal</Text> 
+          <Icon name='arrow-right' size={12} type='font-awesome' color='#6986d6'/>
+        </View>
+      </TouchableOpacity>
       <View style={styles.contentContainer}>
-      <Text style={{ fontWeight:'700' }}>Support et contact</Text>
+      <Text style={{ fontWeight:'700',fontSize:20 }}>Support et contact</Text>
         <View style={{ marginBottom:25 }}>
           <View style={styles.buttonContainer}>
             <FontAwesome name="phone" size={30} color="#1877f2" style={styles.icon} />
@@ -32,22 +38,35 @@ const MenuConnected = () => {
             <Text style={styles.contactInfo}>connecter@gmail.com</Text>
           </View>
         </View>
-        <Text style={{ fontWeight:'700' }}>Réseaux sociaux</Text>
-        <View style={styles.buttonContainer}>
-          <FontAwesome name="facebook-square" size={30} color="#1877f2" style={styles.icon} />
-          <Text style={styles.contactInfo}>facebook.com/yourpage</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <FontAwesome name="whatsapp" size={30} color="#25d366" style={styles.icon} />
-          <Text style={styles.contactInfo}>+123456789</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <FontAwesome name="twitter" size={30} color="#1da1f2" style={styles.icon} />
-          <Text style={styles.contactInfo}>@yourtwitter</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <MaterialIcons name="email" size={30} color="#ff5722" style={styles.icon} />
-          <Text style={styles.contactInfo}>contact@yourdomain.com</Text>
+        <Text style={{ fontWeight:'700',fontSize:20 }}>Réseaux sociaux</Text>
+       
+          <View style={{ justifyContent:'space-between',flexDirection:'row',alignItems:'center',width:"100%",height:'25%' ,paddingHorizontal:10 }}>
+            <View style={styles.buttonContainerReseaux}>
+              <View style={{ justifyContent:'center',alignItems:'center' }}>
+                <FontAwesome name="facebook-square" size={50} color="#1877f2" style={styles.icon} />
+              </View>
+              <Text style={styles.contactInfo}>facebook.com/yourpage1</Text>
+            </View>
+            <View style={styles.buttonContainerReseaux}>
+              <View style={{ justifyContent:'center',alignItems:'center' }}>
+                  <FontAwesome name="whatsapp" size={50} color="#25d366" style={styles.icon} />
+              </View>
+              <Text style={styles.contactInfo}>+123456789</Text>
+            </View>
+          </View>
+          <View style={{ justifyContent:'space-between',flexDirection:'row',alignItems:'center',width:"100%",height:'25%',paddingHorizontal:10 }}>
+          <View style={styles.buttonContainerReseaux}>
+              <View style={{ justifyContent:'center',alignItems:'center' }}>
+                  <FontAwesome name="twitter" size={50} color="#1da1f2" style={styles.icon} />
+              </View>
+            <Text style={styles.contactInfo}>Dcs@yourtwitter</Text>
+          </View>
+            <View style={styles.buttonContainerReseaux}>
+                <View style={{ justifyContent:'center',alignItems:'center' }}>
+            <MaterialIcons name="email" size={50} color="#ff5722" style={styles.icon} />
+              </View>
+            <Text style={styles.contactInfo}>contact@yourdomain.com</Text>
+          </View> 
         </View>
       </View>
       <TouchableOpacity
@@ -72,8 +91,6 @@ const styles = StyleSheet.create({
       padding: 20,
       width: '100%',
       height: '100%',
-      // justifyContent: 'center',
-      // alignItems: 'center',
       borderRadius: 20,
     },
     
@@ -84,18 +101,22 @@ const styles = StyleSheet.create({
       
     },
     headerText: {
-      fontSize: 30,
-      fontWeight: 'bold',
-      color: '#333',
+      fontSize: 20,
+      fontWeight: '900',
+      color: '#595959',
     },
     header: {
-      marginLeft:0,
-      marginBottom: 20,
+      margin:10,
+      justifyContent:'space-between',
+      // flexDirection:'row',
+      backgroundColor: '#edeff0',
+      width:'96%',
+      padding:15,
+      borderRadius:10 
     },
     contentContainer: {
       flex: 1,
-      // justifyContent: 'center',
-      // alignItems: 'center',
+      marginTop:35
     },
     contactInfoContainer: {
       flexDirection: 'row',
@@ -110,12 +131,23 @@ const styles = StyleSheet.create({
       color: '#333',
     },
     buttonContainer: {
-      backgroundColor: '#bcc3cc',
-      padding: 15,
+      backgroundColor: '#edeff0',
+      padding:10,
+      paddingHorizontal:50,
       borderRadius: 10,
       marginTop: 10,
       width: '100%',
       flexDirection:'row'
+    },
+    buttonContainerReseaux: {
+      backgroundColor: '#edeff0',
+      padding: 5,
+      borderRadius: 10,
+      marginTop: 10,
+      width: '45%',
+      height:'90%',
+      justifyContent:'space-between',
+      flexDirection:'column'
     },
     buttondeconnexion: {
       backgroundColor: '#6588bf',

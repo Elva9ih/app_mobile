@@ -2,16 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
-
+import { URL_PATH } from '../AppPath';
 const PayementComponent = ({ visible, onClose ,handleTypePayement}) => {
     const [data,setData] = useState({});
-  useEffect( async() => {
-        //type_payement
-        const response = await axios.get('https://c1ca-41-188-104-179.ngrok-free.app/api/paeiment/data');
-        setData(response.data);
-        alert(JSON.stringify(response.data))
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${URL_PATH}/api/paeiment/data`);
+          setData(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error.message);
+        }
+      };
     
-  },[])
+      fetchData();
+    
+    }, []);
+    
   // alert(JSON.stringify(data))
  const renderType = ({item}) => {
     return (
@@ -51,7 +58,6 @@ const PayementComponent = ({ visible, onClose ,handleTypePayement}) => {
           <Icon
         name="close"
         size={25}
-        // type="font-awesome"
         color="#c45271"
       />
               <Text style={{ fontSize:20,color:'#c45271',top:-2 }}>close</Text>

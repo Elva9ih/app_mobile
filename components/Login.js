@@ -4,11 +4,11 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Keyboard } 
 import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you want to use FontAwesome icons
 import { CheckBox } from 'react-native-elements';
 import { SetConnexion } from '../slices/ConnexionSlice';
-
+import {URL_PATH} from "../AppPath"
 const LoginScreen = ({navigation}) => {
   // const [username, setUsername] = useState('');
-  const [telephone, setTelphone] = useState('');
-  const [password, setPassword] = useState('');
+  const [telephone, setTelphone] = useState('49252653');
+  const [password, setPassword] = useState('1234');
   const [showPassword, setShowPassword] = useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -38,7 +38,7 @@ const LoginScreen = ({navigation}) => {
   // ################# Login ###########################
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://fd2a-41-223-98-66.ngrok-free.app/api/users/login', {
+      const response = await fetch(`${URL_PATH}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const LoginScreen = ({navigation}) => {
         dispatch(SetConnexion(connect))
         setPassword('')
         setTelphone('')
-        navigation.navigate('Home');
+        navigation.replace('Home');
       } else {
         alert("L'utilisateur n'existe pas");
       }
@@ -130,11 +130,11 @@ const LoginScreen = ({navigation}) => {
         <Icon name="angle-right" size={30} color="white" />
       </TouchableOpacity> 
       <View style={styles.signeup}>
-           <Text>Go to </Text>
+           {/* <Text>Go to </Text> */}
            <TouchableOpacity 
-            onPress={() => navigation.navigate('SigneUp')}
+            onPress={() => navigation.replace('SigneUp')}
             >
-           <Text style={styles.forget}> Signe Up </Text>
+           {/* <Text style={styles.forget}> Signe Up </Text> */}
       </TouchableOpacity> 
       </View>
    </View>

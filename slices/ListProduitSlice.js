@@ -14,6 +14,16 @@ const ListProduitSlice = createSlice({
         return { ...state, listproduit: [...state.listproduit, newProduct] };
       }
     },
+    addAllProduitVent: (state, action) => {
+      let count= state.listproduit.length;
+      if(count>0){
+        alert("Archiver d'abord les éléments.")
+      }
+      else{
+        state.listproduit=action.payload.data;
+        // console.log(JSON.stringify(action.payload.data))
+      }
+    },
     increment: (state, action) => {
       const itemIndex = state.listproduit.findIndex(item => item.id === action.payload);
       if (itemIndex !== -1) {
@@ -36,9 +46,18 @@ const ListProduitSlice = createSlice({
       return { ...state, listproduit: state.listproduit.filter(item => item.id !== action.payload) };
     },
     deleteAllProduitVent: (state) => {
+      // console.log(state)
       return { ...state, listproduit: [] };
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase('archive/addArchive', (state, action) => {
+        return { ...state, listproduit: [] };
+      })
+      
+      
+  }
   
 });
 
@@ -48,6 +67,7 @@ export const {
   decrement,
   deleteProduitVent,
   deleteAllProduitVent,
+  addAllProduitVent
 } = ListProduitSlice.actions;
 
 export const totalprix = (state) => {

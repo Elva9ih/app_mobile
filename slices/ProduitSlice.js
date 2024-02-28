@@ -15,6 +15,7 @@ const ProduitSlice = createSlice({
     builder
       .addCase('listproduits/addProduitVent', (state, action) => {
         const selectedItem = action.payload;
+        // console.log(selectedItem)
         const itemIndex = state.findIndex(item => item.id === selectedItem.id);
   
         if (itemIndex !== -1) {
@@ -36,7 +37,37 @@ const ProduitSlice = createSlice({
         }
   
         return state;
-      });
+      })
+      .addCase('listproduits/deleteAllProduitVent', (state, action) => {
+        const newListProduit = state.map(item => {
+          const { selected, ...itemWithoutSelected } = item;
+          return itemWithoutSelected;
+        });
+      
+        return newListProduit;
+      })
+      .addCase('archive/addArchive', (state, action) => {
+        const newListProduit = state.map(item => {
+          const { selected, ...itemWithoutSelected } = item;
+          return itemWithoutSelected;
+        });
+        return newListProduit;
+      })
+       .addCase('listproduits/addAllProduitVent', (state, action) => {
+          const selectedItems = action.payload.data;
+          selected=state.some(obj => obj.hasOwnProperty('selected'));
+          if(!selected){
+          // console.log(selectedItems)
+          const updatedState = state.map(item => {
+            const foundItem = selectedItems.find(selectedItem => selectedItem.id === item.id);
+            if (foundItem) {
+              return { ...item, selected: true };
+            }
+            return item;
+          });
+          return updatedState;
+        }
+      })
   }
   
 });

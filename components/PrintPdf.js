@@ -46,7 +46,7 @@ export default function PrintPdf() {
     const printer = await Print.selectPrinterAsync(); // iOS only
     setSelectedPrinter(printer);
   }
-  const myCartItems = useSelector(allventeproduits);
+  const myCartItems = useSelector((state) => state.listproduits.listproduit);
   const createDynamicTable = () => {
     var table = '';
     for (let i in myCartItems) {

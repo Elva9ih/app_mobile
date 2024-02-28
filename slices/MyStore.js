@@ -3,6 +3,7 @@ import ProduitSlice from '../slices/ProduitSlice';
 import CategorieSlice from "./CategorieSlice";
 import ListProduitSlice from "./ListProduitSlice";
 import ConnexionSlice from "./ConnexionSlice";
+import ArchiveSlice from "./ArchiveSlice";
 
 export const mystore=configureStore({
     reducer:{
@@ -10,6 +11,6 @@ export const mystore=configureStore({
         listproduits:ListProduitSlice,
         categorie:CategorieSlice,
         connexion:ConnexionSlice,
+        archive:ArchiveSlice
     }
 })
-

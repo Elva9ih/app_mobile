@@ -61,9 +61,9 @@ const Categorie = ({route,navigation}) => {
       setIsCameraOpen(true);
     };
   
-    if (hasPermission === null) {
-      return <Text>Requesting camera permission</Text>;
-    }
+    // if (hasPermission === null) {
+    //   return <Text>Requesting camera permission</Text>;
+    // }
     if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     }    

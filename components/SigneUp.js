@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import { View, Text,Keyboard, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you want to use FontAwesome icons
 import { CheckBox } from 'react-native-elements';
-
+import { URL_PATH } from '../AppPath';
 const SigneUpScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ const SigneUpScreen = ({navigation}) => {
   };
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://fd2a-41-223-98-66.ngrok-free.app/api/users/register', {
+      const response = await fetch(`${URL_PATH}/api/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
